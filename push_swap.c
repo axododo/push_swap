@@ -1,23 +1,30 @@
 #include "stdio.h"
 
-int *push_swap(int *a) {
-  int i = 1;
-  int *tmp;
-  int *b;
-  int max;
-  while(a[i]) {
-    if (a[i] < a[i-1]) {
-      tmp[i] = a[i];
-    }
-    if (a[i] > a[i-1]) {
-      tmp[i - i] = a[i];
-    }
-    i++;
-  }
+
+size_t	ft_strlen(int *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+    str[i] -= '0';
+		i++;
+	}
+	return (i);
 }
 
-int main(int argc, char const *argv[]) {
+
+int *push_swap(int *a) {
+  int i = 1;
+  int mid;
+  mid = ft_strlen(a);
+  printf("%i/ne", mid);
+  return a;
+}
+
+int main(int argc, char *argv[]) {
+//  printf("%i\n", *argv[2]);
   int *a = push_swap((int *)argv[1]);
-  printf("%i\n", a);
   return 0;
 }
