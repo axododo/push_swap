@@ -1,4 +1,4 @@
-#include "push.h"
+#include "../push.h"
 
 void swap(t_stack *stack) {
   int tmpr;

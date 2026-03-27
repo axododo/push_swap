@@ -1,4 +1,4 @@
-#include "../push.c"
+#include "../push.h"
 
 
 void push(t_stack *src, t_stack *dst) {

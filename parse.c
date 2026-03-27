@@ -35,7 +35,7 @@ int hdup(char **nums){
   while(nums[j]) {
     k = j + 1;
     while (nums[k]) {
-      if (ft_atoi(nums[j], int &error) == ft_atoi(nums[k], int &error))
+			if (ft_atoi(nums[j], &error) == ft_atoi(nums[k], &error))
         return 1;
       k++;
     }
@@ -48,7 +48,7 @@ int verif(char **nums){
   int i = 0;
   int x = 0;
 
-  while(nums[x][i]) {
+  while(nums[x]) {
     while (nums[x][i]) {
       if (i == 0 && (nums[x][i] == '+' || nums[x][i] == '-') )
         i++;
@@ -108,7 +108,7 @@ void pars(char **nums,  t_stack *stack) {
   while(nums[j]) {
     node = new_node(ft_atoi(nums[j], &error));
     if(!node){
-      write(1, "Error\n", 6)
+			write(1, "Error\n", 6);
     }
     if (error == 1){
       write(2, "Error\n", 6);
