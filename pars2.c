@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pars2.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mguilber <mguilber@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/29 16:05:48 by mguilber          #+#    #+#             */
+/*   Updated: 2026/03/29 17:17:44 by mguilber         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push.h"
 
 long	ft_atoi(const char *nptr, int *error)
@@ -84,10 +96,39 @@ size_t	ft_strlen(const char *str)
 		i++;
 	return (i);
 }
-
-char	**split_nums(int ac, char **av)
+static int  count_total(int ac, char **av)
 {
-	if (ac == 2)
-		return (ft_split(av[1], ' '));
-	return (av + 1);
+    int total;
+    int i;
+
+    total = 0;
+    i = 1;
+    while (i < ac)
+        total += ft_count_words(av[i++], ' ');
+    return (total);
+}
+
+char        **split_nums(int ac, char **av)
+{
+    char    **result;
+    char    **split;
+    int     i;
+    int     j;
+    int     k;
+
+    result = malloc(sizeof(char) * (count_total(ac, av) + 1));
+    if (!result)
+        return (NULL);
+    k = 0;
+    i = 1;
+    while (i < ac)
+    {
+        split = ft_split(av[i++], ' ');
+        j = 0;
+        while (split[j])
+            result[k++] = split[j++];
+        split = NULL;
+    }
+    result[k] = NULL;
+    return (result);
 }

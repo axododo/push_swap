@@ -1,4 +1,16 @@
-#include "push.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   k_sort.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mguilber <mguilber@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/29 16:06:08 by mguilber          #+#    #+#             */
+/*   Updated: 2026/03/29 16:15:11 by mguilber         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../push.h"
 
 int	is_empty(t_stack *stack)
 {
@@ -7,71 +19,58 @@ int	is_empty(t_stack *stack)
 	return (0);
 }
 
-int	find_max(t_stack *stack)
+static	int	bytes_count(int i, int bytes_size)
 {
-	int		max;
-	t_node	*tmp;
-
-	tmp = stack->first;
-	max = stack->first->rank;
-	while (tmp)
+	while (i > 1)
 	{
-		if (tmp->rank > max)
-			max = tmp->rank;
-		tmp = tmp->next;
+		i /= 2;
+		bytes_size++;
 	}
-	return (max);
+	return (bytes_size);
 }
 
-void	re_push(t_stack *a, t_stack *b)
+static	void	rady(t_stack *a, t_stack *b, int bytes_size, int j)
 {
-	int	max;
-	int	pos;
-
-	while (!is_empty(b))
-	{
-		max = find_max(b);
-		pos = find_pos(b, max);
-		if (pos == -1)
-			return ;
-		if (pos <= b->size / 2)
-		{
-			while (b->first->rank != max)
-				rb(b);
-		}
-		else
-		{
-			while (b->first->rank != max)
-				rrb(b);
-		}
-		pa(a, b);
-	}
-}
-
-void	k_sort(t_stack *a, t_stack *b)
-{
-	int	threshold;
-	int	delta;
 	int	i;
-	int	size;
 
-	size = a->size;
-	delta = size / 15 + 10;
-	threshold = 0;
-	while (!is_empty(a))
+	i = b->size;
+	while (i && j <= bytes_size && !is_sorted(a))
 	{
-		i = 0;
-		while (i < size)
+		if (((b->first->rank >> j) & 1) == 0)
+			rb(b);
+		else
+			pa(a, b);
+		i--;
+	}
+	if (is_empty(a))
+		while (b->size != 0)
+			pa(a, b);
+}
+
+void	radx(t_stack *a, t_stack *b)
+{
+	int	i;
+	int	j;
+	int	bytes_size;
+
+	bytes_size = 0;
+	i = a->size;
+	bytes_size = bytes_count(i, bytes_size);
+	j = -1;
+	while (j <= bytes_size)
+	{
+		j++;
+		i = a->size;
+		while (i && !is_sorted(a))
 		{
-			if (is_empty(a))
-				break ;
-			if (a->first->rank <= threshold + delta)
+			if (((a->first->rank >> j) & 1) == 0)
 				pb(a, b);
 			else
 				ra(a);
-			i++;
+			i--;
 		}
-		threshold += delta;
+		rady(a, b, bytes_size, j + 1);
 	}
-	re_push(a, b);
+	while (b->size != 0)
+		pa(a, b);
 }

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mguilber <mguilber@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/29 16:05:19 by mguilber          #+#    #+#             */
+/*   Updated: 2026/03/29 17:10:03 by mguilber         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push.h"
 
-static size_t	ft_count_words(char const *s, char c)
+size_t	ft_count_words(char const *s, char c)
 {
 	size_t	i;
 	size_t	count;
