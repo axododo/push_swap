@@ -1,9 +1,10 @@
 #include "push.h"
+
 long	ft_atoi(const char *nptr, int *error)
 {
-	int	i;
-	int	signe;
-  long nb;
+	int		i;
+	int		signe;
+	long	nb;
 
 	signe = 1;
 	i = 0;
@@ -20,55 +21,52 @@ long	ft_atoi(const char *nptr, int *error)
 		nb += nptr[i] - '0';
 		i++;
 	}
-  if (signe == 1 && nb > 2147483647)
-    *error = 1;
-  if (signe == -1 && nb > (long)2147483648)
-    *error = 1;
+	if (signe == 1 && nb > 2147483647)
+		*error = 1;
+	if (signe == -1 && nb > (long)2147483648)
+		*error = 1;
 	return (nb * signe);
 }
+
 int	free_tab(char **tab)
 {
 	int	y;
 
 	y = 0;
-  while (tab[y])
-    free(tab[y++]);
-  free(tab);
+	while (tab[y])
+		free(tab[y++]);
+	free(tab);
 	return (0);
 }
 
-void free_stack(t_stack *stack)
+void	free_stack(t_stack *stack)
 {
-    t_node *tmp;
-    t_node *curr = stack->first;
-    while (curr)
-    {
-        tmp = curr->next;
-        free(curr);
-        curr = tmp;
-    }
-    stack->first = NULL;
-    stack->size = 0;
+	t_node	*tmp;
+	t_node	*curr;
+
+	curr = stack->first;
+	while (curr)
+	{
+		tmp = curr->next;
+		free(curr);
+		curr = tmp;
+	}
+	stack->first = NULL;
+	stack->size = 0;
 }
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t	i;
 	size_t	len;
-	size_t	size2;
 
-	size2 = size;
 	len = 0;
 	i = 0;
 	while (src[len])
-	{
 		len++;
-	}
 	if (size == 0)
-	{
 		return (len);
-	}
-	while (src[i] && i < size2 - 1)
+	while (src[i] && i < size - 1)
 	{
 		dst[i] = src[i];
 		i++;
@@ -87,9 +85,9 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char    **split_nums(int ac, char **av)
+char	**split_nums(int ac, char **av)
 {
-    if (ac == 2)
-        return (ft_split(av[1], ' '));
-    return (av + 1);
+	if (ac == 2)
+		return (ft_split(av[1], ' '));
+	return (av + 1);
 }

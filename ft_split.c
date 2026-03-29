@@ -24,20 +24,20 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	size = ft_strlen(s) - start;
-	if (size > len)
-		size = len;
 	if (start >= ft_strlen(s))
 	{
 		dest = malloc(sizeof(char));
 		if (!dest)
-			return (0);
+			return (NULL);
 		dest[0] = 0;
 		return (dest);
 	}
+	size = ft_strlen(s) - start;
+	if (size > len)
+		size = len;
 	dest = malloc(sizeof(char) * (size + 1));
 	if (!dest)
-		return (0);
+		return (NULL);
 	ft_strlcpy(dest, &s[start], (size + 1));
 	return (dest);
 }
@@ -83,8 +83,9 @@ char	**ft_split(char const *s, char c)
 		if (!s[i])
 			break ;
 		i = ft_next_word(s, c, i, &w[j]);
-		if (!w[j++])
-			return (ft_free(w, j - 1));
+		if (!w[j])
+			return (ft_free(w, j));
+		j++;
 	}
 	w[j] = NULL;
 	return (w);

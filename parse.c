@@ -1,19 +1,28 @@
 #include "push.h"
 
- int	hdup(char **nums)
+int	hdup(char **nums)
 {
 	int		j;
 	int		k;
 	int		error;
+	long	val_j;
+	long	val_k;
 
 	j = 0;
-	error = 0;
 	while (nums[j])
 	{
+		error = 0;
+		val_j = ft_atoi(nums[j], &error);
+		if (error)
+			return (1);
 		k = j + 1;
 		while (nums[k])
 		{
-			if (ft_atoi(nums[j], &error) == ft_atoi(nums[k], &error))
+			error = 0;
+			val_k = ft_atoi(nums[k], &error);
+			if (error)
+				return (1);
+			if (val_j == val_k)
 				return (1);
 			k++;
 		}
@@ -22,18 +31,19 @@
 	return (0);
 }
 
- int	verif(char **nums)
+int	verif(char **nums)
 {
-	int		i;
-	int		x;
+	int	i;
+	int	x;
 
-  if (!nums || !nums[0])
-    return (1);
-	i = 0;
+	if (!nums || !nums[0])
+		return (1);
 	x = 0;
 	while (nums[x])
 	{
-    if (nums[x][0] == '\0' || ((nums[x][i] == '+' || nums[x][i] == '-') &&nums[x][1] == '\0'))
+		i = 0;
+		if (nums[x][0] == '\0' || ((nums[x][i] == '+' || nums[x][i] == '-')
+				&& nums[x][1] == '\0'))
 			return (1);
 		while (nums[x][i])
 		{
@@ -44,22 +54,22 @@
 			else
 				i++;
 		}
-		i = 0;
 		x++;
 	}
 	return (0);
 }
 
-static void	error_exit(char **nums, t_stack *stack, int ac)
+static void	error_exit(char **nums, t_stack *a, t_stack *b, int ac)
 {
 	write(2, "Error\n", 6);
 	if (ac == 2)
 		free_tab(nums);
-	free_stack(stack);
+	free_stack(a);
+	free_stack(b);
 	exit(1);
 }
 
-t_node		*new_node(int value)
+t_node	*new_node(int value)
 {
 	t_node	*node;
 
@@ -72,7 +82,7 @@ t_node		*new_node(int value)
 	return (node);
 }
 
-void		add_back(t_stack *stack, t_node *node)
+void	add_back(t_stack *stack, t_node *node)
 {
 	t_node	*tmp;
 
@@ -89,7 +99,7 @@ void		add_back(t_stack *stack, t_node *node)
 	stack->size++;
 }
 
-void		pars(char **nums, t_stack *stack, int ac)
+void	pars(char **nums, t_stack *a, t_stack *b, int ac)
 {
 	int		j;
 	int		error;
@@ -97,14 +107,15 @@ void		pars(char **nums, t_stack *stack, int ac)
 
 	error = 0;
 	if (verif(nums) || hdup(nums))
-		error_exit(nums, stack, ac);
+		error_exit(nums, a, b, ac);
 	j = 0;
 	while (nums[j])
 	{
+		error = 0;
 		node = new_node(ft_atoi(nums[j], &error));
 		if (!node || error == 1)
-			error_exit(nums, stack, ac);
-		add_back(stack, node);
+			error_exit(nums, a, b, ac);
+		add_back(a, node);
 		j++;
 	}
 }

@@ -1,9 +1,12 @@
 NAME = push_swap
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g 
+# FIX: ajout de -I. pour que tous les .c puissent utiliser #include "push.h"
+CFLAGS = -Wall -Wextra -Werror -g -I.
 
-SRCS = main.c parse.c pars2.c ft_split.c move/push.c move/rotate.c move/swap.c move/rev_rot.c algo/mini.c algo/k_sort.c
+SRCS = main.c parse.c pars2.c ft_split.c \
+       move/push.c move/rotate.c move/swap.c move/rev_rot.c \
+       algo/mini.c algo/k_sort.c
 
 OBJS = $(SRCS:.c=.o)
 
