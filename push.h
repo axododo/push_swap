@@ -16,6 +16,7 @@ typedef struct s_stack {
   t_node *first;
 } t_stack;
 
+char    **split_nums(int ac, char *av[]);
 void indeex(t_stack *stack);
 int main(int ac, char const *av[]);
 long ft_atoi(const char *nptr, int *error);
@@ -23,7 +24,12 @@ int hdup(char **nums);
 int verif(char **nums);
 t_node *new_node(int value);
 void add_back(t_stack *stack, t_node *node);
-void pars(char **nums, t_stack *stack);
+void pars(char **nums, t_stack *stack, int ac);
+char	**ft_split(char const *s, char c);
+size_t	ft_strlen(const char *str);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+void free_stack(t_stack *stack);
+int	free_tab(char **tab);
 
 void push(t_stack *src, t_stack *dst);
 void pa(t_stack *a, t_stack *b);
@@ -42,4 +48,9 @@ void rrb(t_stack *b);
 void rrr(t_stack *a, t_stack *b);
 
 void sort_three(t_stack *a);
+int push_min(t_stack *a, t_stack *b, int rank);
+int find_pos(t_stack *a, int rank);
+void sort_five(t_stack *a, t_stack *b);
+void k_sort(t_stack *a, t_stack *b);
+int find_max(t_stack *stack);
 #endif

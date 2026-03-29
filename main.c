@@ -18,14 +18,6 @@ void indeex(t_stack *stack) {
 }
 
 
-t_stack *init_stack() {
-    t_stack *stack = malloc(sizeof(t_stack));
-    stack->first = NULL;
-    stack->size = 0;
-    return stack;
-}
-
-
 void print_stack(t_stack *stack) {
     t_node *curr = stack->first;
     printf("[");
@@ -37,15 +29,46 @@ void print_stack(t_stack *stack) {
     printf("]\n");
 }
 
-int main(int ac, char const *av[]) {
-  t_stack stack;
-  stack.first = NULL;
-  stack.size = 0;
-  if (ac == 1)
-    return 0;
-  pars((char **)av + 1, &stack);
-  print_stack(&stack);
-  sort_three(&stack);
-  print_stack(&stack);
-  return 0;
+static int	is_sorted(t_stack *a)
+{
+    t_node	*tmp;
+
+    tmp = a->first;
+    while (tmp && tmp->next)
+    {
+        if (tmp->rank > tmp->next->rank)
+            return (0);
+        tmp = tmp->next;
+    }
+    return (1);
+}
+
+int	main(int ac, char const *av[])
+{
+	t_stack	a;
+	t_stack	b;
+	char	**nums;
+
+	if (ac == 1)
+		return (0);
+	if (ac == 2 && av[1][0] == '\0')
+		return (write(2, "Error\n", 6), 1);
+  a = (t_stack){0, 0};
+  b = (t_stack){0, 0};
+	nums = split_nums(ac, (char **)av);
+	pars(nums, &a, ac);
+	indeex(&a);
+  if (a.size <= 1);
+  else if (is_sorted(&a));
+  else if (a.size <= 3)
+		sort_three(&a);
+	else if (a.size <= 5)
+		sort_five(&a, &b);
+	else
+		k_sort(&a, &b);
+	if (ac == 2)
+		free_tab(nums);
+	free_stack(&a);
+	free_stack(&b);
+	return (0);
 }

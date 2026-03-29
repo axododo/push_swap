@@ -1,9 +1,9 @@
 NAME = push_swap
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g 
 
-SRCS = main.c parse.c move/push.c move/rotate.c move/swap.c move/rev_rot.c algo/mini.c
+SRCS = main.c parse.c pars2.c ft_split.c move/push.c move/rotate.c move/swap.c move/rev_rot.c algo/mini.c algo/k_sort.c
 
 OBJS = $(SRCS:.c=.o)
 
